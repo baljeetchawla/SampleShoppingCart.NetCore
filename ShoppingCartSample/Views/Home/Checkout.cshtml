@@ -1,0 +1,35 @@
+﻿
+@model List<ShoppingCartSample.Models.CartInformationModel>
+<div class="text-center">
+    <h1 class="display-4">Cart Details</h1>
+    <hr />
+    <table cellpadding="0" cellspacing="0">
+
+        @foreach (CartInformationModel cart in Model)
+        {
+            <tr>
+                <td>Product: @cart.productTitle</td>
+            </tr>
+            <tr>
+                <td>Quantity: @cart.Quantity</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><input type="button" value="Delete" onclick="DeleteProduct(@cart.ProductId)" /></td>
+            </tr>
+        }
+    </table>
+    </div>
+<script type="text/javascript">
+    function DeleteProduct(productId) {
+        $.ajax({
+            url: "/Home/DeleteProduct",
+            data: {
+                "productId": productId
+            },
+            success: function (data) {
+                location.href = location.href;
+            }
+        });
+    }
+</script>

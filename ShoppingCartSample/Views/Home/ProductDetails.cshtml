@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Product Details Page";
+
+}
+@model ShoppingCartSample.Models.ProductModels
+<div class="text-center">
+    <h1 class="display-4">Product Details</h1>
+    <hr />
+    <table cellpadding="0" cellspacing="0">
+        <tr>
+            <td>Title: @Model.ProductTitle</td>
+        </tr><tr><td>Price: @Model.Price</td>
+</tr>
+        
+        <tr><td>Description: @Model.Description</td> </tr>
+        <tr><td><img width ="200", height="100", src="~/productImages/@Model.ImageName"/></td> </tr>
+        <tr>
+        <td><input type="button" value="Add to Cart" onclick="AddToCart(@Model.ProductId)" /></td></tr>
+       
+    </table>
+    </div>
+<script type="text/javascript">
+    function AddToCart(productId) {
+        debugger;
+        $.ajax({
+            url: "/Home/AddToCart",
+            data: {
+                "productId": productId
+            },
+            success: function (data) {
+                $("#cartCount").text(data);
+            }
+        });
+    }
+</script>

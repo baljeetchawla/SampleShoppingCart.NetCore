@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+
+}
+@model List<ShoppingCartSample.Models.ProductModels>
+<div class="text-center">
+    <h1 class="display-4">Products</h1>
+    <hr />
+    <table cellpadding="0" cellspacing="0">
+        <tr>
+            @foreach (ProductModels product in Model)
+            {
+            <tr>
+                <td><a href="/Home/ProductDetails/@product.ProductId">@product.ProductTitle </a></td>
+                <td>@product.Price</td>
+                <td><input type="button" value="Add to Cart" onclick="AddToCart(@product.ProductId)" /></td>
+            </tr>
+        }
+        </table>
+    </div>
+<script type="text/javascript">
+    function AddToCart(productId) {
+        $.ajax({
+            url: "/Home/AddToCart",
+            data: {
+                "productId": productId
+            },
+            success: function (data) {
+                $("#cartCount").text(data);
+            }
+        });
+    }
+</script>
